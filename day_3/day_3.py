@@ -1,25 +1,22 @@
 # Advent of Code - Day 3
 
-def number_of_trees_hit(ski_map, x_move, y_move):
+def number_of_trees_hit(ski_map, slope):
     """
-    Calculates the number of trees hit given a map and a specific slope. O(n)
+    Calculates the number of trees hit given a map and a specific slope. O(n) where n is
+    len(ski_map) // y_move. Worst case n = len(ski_map).
     """
     curr_x, num_trees = (0, 0)
+    x_move, y_move = slope
+
     for i in range(0, len(ski_map), y_move):
         position = ski_map[i]
-        if hits_tree(position, curr_x):
+
+        if position[curr_x] == "#":  # if hits tree
             num_trees += 1
 
         curr_x = (curr_x + x_move) % 31
 
     return num_trees
-
-
-def hits_tree(position, x):
-    """
-    Returns boolean. True if a tree is hit, False if not. O(1)
-    """
-    return position[x] == "#"
 
 
 def multi_slope_tree_hit_product(slope_list, filename):
@@ -30,7 +27,7 @@ def multi_slope_tree_hit_product(slope_list, filename):
     f = open(filename).read().splitlines()
 
     product = 1
-    for x, y in slope_list:
-        product *= number_of_trees_hit(f, x, y)
+    for slope in slope_list:
+        product *= number_of_trees_hit(f, slope)
 
     return product
