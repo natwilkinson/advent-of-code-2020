@@ -52,14 +52,12 @@ def try_alternatives(operations):
         if action == "acc":
             continue
 
-        copy = operations.copy()
-        if action == "nop":
-            copy[key] = ["jmp", change]
+        swap_actions = { "jmp":"nop", "nop":"jmp" }
+        operations[key] = (swap_actions[action], change)  # swap actions
 
-        if action == "jmp":
-            copy[key] = ["nop", change]
-
-        value = run_program(copy, 0, 0, set())
+        value = run_program(operations, 0, 0, set())
         if value:
             return value
+
+        operations[key] = (action, change)  # swap actions back for next iteration
     return None
