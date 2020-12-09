@@ -1,6 +1,6 @@
 def get_data(filename):
     """
-    ASDF
+    { index: (action, change), ... }
     """
     f = open(filename).readlines()
     operations = {}
@@ -13,7 +13,11 @@ def get_data(filename):
 
 
 def run_program(operations_dict, curr_index, accumulator, visited_ind):
-    # program terminates and returns accumulator at the end
+    """
+    Returns accumulator value when program terminates. If program enters infinite loop,
+    return None.
+    """
+    # program finishes and returns accumulator at end of file
     if curr_index not in operations_dict:
         return accumulator
 
@@ -38,21 +42,24 @@ def run_program(operations_dict, curr_index, accumulator, visited_ind):
 
 
 def try_alternatives(operations):
+    """
+    Swaps "nop" and "jmp" actions and runs `run_program`. Returns accumulator value for
+    program that successfully finishes. Returns None if no swapped solution exists.
+    """
     for key in operations:
         action, change = operations[key]
 
         if action == "acc":
             continue
+
+        copy = operations.copy()
         if action == "nop":
-            copy = operations.copy()
             copy[key] = ["jmp", change]
-            value = run_program(copy, 0, 0, set())
-            if value:
-                return value
+
         if action == "jmp":
-            copy = operations.copy()
             copy[key] = ["nop", change]
-            value = run_program(copy, 0, 0, set())
-            if value:
-                return value
+
+        value = run_program(copy, 0, 0, set())
+        if value:
+            return value
     return None
