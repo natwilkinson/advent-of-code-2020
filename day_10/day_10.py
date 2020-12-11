@@ -8,14 +8,12 @@ def get_data(filename):
 
 
 def calculate_jolts(data_list):
-    diff_1, diff_3 = (0, 1)  # diff_3 = 1 b/c we count devices joltage
-    total = 0
+    diff_1, diff_3 = (0, 0)
     for num in data_list:
-        diff = num - total
+        diff = num - (diff_1 + (diff_3 * 3))
         if diff == 1: diff_1 += 1
         elif diff == 3: diff_3 += 1
-        total += diff
-    return diff_1 * diff_3
+    return diff_1 * (diff_3 + 1)
 
 
 def all_possible_combos(data_list):
