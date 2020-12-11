@@ -81,3 +81,8 @@ def num_bags_inside(target, bag_data, visited):
         curr_sum += int(num_bags) * visited[bag_color]
     visited[target] = curr_sum  # store bag data to avoid duplicate calculation
     return curr_sum - 1
+
+
+# bag_data = get_parent_bags_data("input_day_7.txt")
+# print(find_suitable_bags("shiny gold", bag_data, set()))
+# print(num_bags_inside("shiny gold", bag_data, {} ))

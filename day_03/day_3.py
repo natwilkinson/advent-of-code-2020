@@ -31,3 +31,13 @@ def multi_slope_tree_hit_product(slope_list, filename):
         product *= number_of_trees_hit(f, slope)
 
     return product
+
+
+slope_list = [
+    (1, 1),
+    (3, 1),
+    (5, 1),
+    (7, 1),
+    (1, 2),
+]
+print(multi_slope_tree_hit_product(slope_list, "input_day_3.txt"))

@@ -61,3 +61,7 @@ def try_alternatives(operations):
 
         operations[key] = (action, change)  # swap actions back for next iteration
     return None
+
+
+operations = get_data("input_day_8.txt")
+print(try_alternatives(operations))

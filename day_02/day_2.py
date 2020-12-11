@@ -43,3 +43,6 @@ def has_valid_password_part_2(index_1, index_2, target, password):
     if (password[index_1] == target) is not (password[index_2] == target):
         return True
     return False
+
+
+print(get_valid_passwords("input_day_2.txt"))
